@@ -8,6 +8,7 @@ import LoginForm from "./components/LoginPages/LoginForm";
 import Registration from "./components/LoginPages/Registration";
 import Page404 from "./components/Page404";
 import DashboardPage from "./components/dashboard/DashboardPage";
+import BidDetail from "./components/dashboard/bidDetails/BidDetail";
 
 // Page roots
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardPage />,
+  },
+  {
+    path: "/details/:id",
+    element: <BidDetail />,
   },
   {
     path: "/page-not-found",

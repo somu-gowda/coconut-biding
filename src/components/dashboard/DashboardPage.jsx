@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import CowCard from "../card/Card";
 import NavBar from "../Layouts/NavBar";
 import "./DashboardPage.css";
-import { Button, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import WebCookies from "../../components/common/Cookies/cookies";
 import ProductAddModal from "../modal/ProductAddModal";
 import AddProducts from "../modal/ProductAddApi";
@@ -27,12 +27,12 @@ const DashboardPage = () => {
 
   const getCoconutData = (setState) => {
     AddProducts.getApi((res) => {
-      if(res){
+      if (res) {
         setState(res.data.products);
       } else {
         navigate("/page-not-found");
       }
-    })
+    });
   };
 
   const getUserInCookie = () => {
@@ -59,18 +59,20 @@ const DashboardPage = () => {
       <NavBar />
       <ToastContainer />
       {currentUser.role === PRODUCER ? (
-        <Container className="align-items-end">
-          <Row className="mt-3">
-            <Button variant="success" onClick={addProductModalToggle}>
-              + Add Product
-            </Button>
+        <Container >
+          <Row className="mt-3 ">
+            <Col xs={{ span: 6, offset: 6 }} sm={{ span: 8, offset: 8 }} md={{ span: 10, offset: 10 }} lg={{ span: 12, offset: 12 }} >
+              <Button variant="success" onClick={addProductModalToggle}>
+                + Add Product
+              </Button>
+            </Col>
           </Row>
-        </Container>
+         </Container>
       ) : (
         ""
       )}
       <div className="coconut-cards">
-        <CowCard coconutData={state} />
+        <CowCard coconutData={state} currentUser={currentUser} />
       </div>
       <ProductAddModal
         open={addProductModalOpen}

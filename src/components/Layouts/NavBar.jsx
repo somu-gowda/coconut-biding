@@ -23,7 +23,7 @@ function appBarLabel(label, callBack) {
         {label}
       </Typography>
       <span onClick={() => logoutModal("wallet", callBack)}>
-        <abbr title="wallet">
+      <abbr title="Wallet" >
           <FaWallet
             style={{
               color: "white",
@@ -33,7 +33,7 @@ function appBarLabel(label, callBack) {
               cursor: "pointer",
             }}
           />
-        </abbr>
+          </abbr>
       </span>
       <span onClick={() => logoutModal("logout", callBack)}>
         <abbr title="logout">
@@ -88,6 +88,7 @@ const NavBar = () => {
 
   const logOutFun = () => {
     WebCookies.RemoveCookie("userin");
+    WebCookies.RemoveCookie("bidId");
     handleNavigation();
   };
 
