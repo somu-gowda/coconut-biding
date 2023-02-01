@@ -40,10 +40,12 @@ const CowCard = (props) => {
                   </Card.Text>
                   {Date.parse(data.bidStartDate) > Date.parse(new Date()) ? (
                     <Row className="justify-content-center">
-                      <span className="bg-success text-white">
+                      <span className="mt-1 bg-success text-white">
                         Bid Starts In
                       </span>{" "}
+                      <Col className="m-1 text-center z-index-1">
                       <Timer deadTime={data.bidStartDate} />
+                      </Col>
                     </Row>
                   ) : Date.parse(data.bidEndDate) < Date.parse(new Date()) ? (
                     <Row className="justify-content-center">

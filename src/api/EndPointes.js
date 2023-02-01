@@ -1,4 +1,4 @@
-const REACT_APP_API_URL = "https://3368-36-255-87-123.in.ngrok.io/api";
+const REACT_APP_API_URL = "https://f7d8-36-255-87-126.in.ngrok.io/api";
 
 const appApi = (path) => `${REACT_APP_API_URL}/${path}`;
 
@@ -8,4 +8,5 @@ export const endpoints = () => ({
   userAPI: appApi("v1/users"),
   userLogin: appApi("v1/login"),
   productAPI: appApi("v1/products"),
+  walletAPI: appApi("v1/users"),
 });

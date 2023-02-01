@@ -28,7 +28,7 @@ const ProductAddModal = (props) => {
   const [startDate, setStartDate] = useState(dayjs(new Date()));
   const [endDate, setEndDate] = useState(dayjs(new Date()));
   const [currentUser, setCurrentUser] = useState("");
-  // dayjs(new Date())
+
   let [state, setState] = useState({
     product: {
       producerId: currentUser && currentUser._id,

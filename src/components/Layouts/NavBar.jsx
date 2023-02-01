@@ -8,9 +8,11 @@ import { createTheme } from "@mui/material";
 import { ThemeProvider } from "styled-components";
 import { FaSignOutAlt, FaWallet } from "react-icons/fa";
 import LogOutModal from "../modal/LogoutModal";
-import WalletModal from "../modal/WalletModal";
+import WalletModal from "../modal/wallet/WalletModal";
 import WebCookies from "../../components/common/Cookies/cookies";
 import { useNavigate } from "react-router-dom";
+import WalletAPI from "../modal/wallet/WalletApi";
+import { ToastContainer, toast } from "react-toastify";
 
 function appBarLabel(label, callBack) {
   const logoutModal = (data, callBack) => {
@@ -23,7 +25,7 @@ function appBarLabel(label, callBack) {
         {label}
       </Typography>
       <span onClick={() => logoutModal("wallet", callBack)}>
-      <abbr title="Wallet" >
+        <abbr title="Wallet">
           <FaWallet
             style={{
               color: "white",
@@ -33,7 +35,7 @@ function appBarLabel(label, callBack) {
               cursor: "pointer",
             }}
           />
-          </abbr>
+        </abbr>
       </span>
       <span onClick={() => logoutModal("logout", callBack)}>
         <abbr title="logout">
@@ -64,6 +66,8 @@ const darkTheme = createTheme({
 const NavBar = () => {
   const [openLogoutModal, setLogoutModal] = React.useState(false);
   const [openWalletModal, setWalletModal] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState("");
+  const [walletDetails, setWalletDetails] = React.useState("");
 
   const handleLogoutClose = () => setLogoutModal(false);
   const handleLogoutopen = () => setLogoutModal(true);
@@ -86,6 +90,30 @@ const NavBar = () => {
     navigate("/");
   };
 
+  React.useEffect(() => {
+    getUserInCookie();
+  }, []);
+
+  const getWallDeatil = (userName, callBack) => {
+    WalletAPI.getApi(userName, callBack);
+  };
+
+  const AddWallAmount = (data) => {
+    WalletAPI.postApi(data, (response) => {
+      if (response.status === "SUCCESS") {
+        toast("Successfull wallet amount add");
+      }
+      getWallDeatil(setWalletDetails);
+      handleWalletClose();
+    });
+  };
+
+  const getUserInCookie = () => {
+    let cookie = WebCookies.GetCookie("userin");
+    setCurrentUser(JSON.parse(cookie));
+    getWallDeatil(JSON.parse(cookie).userName, setWalletDetails);
+  };
+
   const logOutFun = () => {
     WebCookies.RemoveCookie("userin");
     WebCookies.RemoveCookie("bidId");
@@ -94,7 +122,14 @@ const NavBar = () => {
 
   return (
     <React.Fragment>
-      <WalletModal open={openWalletModal} handleClose={handleWalletClose} />
+      <ToastContainer />
+      <WalletModal
+        currentUser={currentUser}
+        open={openWalletModal}
+        walletDetails={walletDetails}
+        handleClose={handleWalletClose}
+        AddWallAmount={(e) => AddWallAmount(e)}
+      />
       <LogOutModal
         open={openLogoutModal}
         handleClose={handleLogoutClose}
