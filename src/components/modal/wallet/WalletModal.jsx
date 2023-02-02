@@ -10,6 +10,7 @@ const WalletModal = (props) => {
     walletDetails,
     currentUser,
     AddWallAmount,
+    walletAmount
      } = props;
       
   let [state, setState] = useState({
@@ -21,14 +22,12 @@ const WalletModal = (props) => {
 
   useEffect(() => {
     updateWalletAmount();
-  }, [walletDetails])
+  }, [walletAmount])
 
   const updateWalletAmount = () => {
     setState(() => ({
       wallet: {
-        amount: walletDetails.data &&
-        walletDetails.data.wallet ?
-        walletDetails.data.wallet.amount : "",
+        amount: walletAmount ? walletAmount : "",
       },
     }));
   }
@@ -45,10 +44,9 @@ const WalletModal = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    AddWallAmount(state, handleClose);
+    AddWallAmount(state);
   };
  
-
   return (
     <Modal show={open} onHide={handleClose} className="shadow">
       <Form onSubmit={handleSubmit}>

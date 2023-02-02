@@ -7,7 +7,6 @@ import {
   FormControl,
   FormGroup,
   FormLabel,
-  InputGroup,
   Modal,
   Row,
 } from "react-bootstrap";
@@ -36,6 +35,7 @@ const ProductAddModal = (props) => {
       basePrice: "",
       bidStartDate: "",
       bidEndDate: "",
+      noOfUnits: "",
       imageUrl: "",
     },
   });
@@ -76,8 +76,11 @@ const ProductAddModal = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     let values = state;
+    values.product.basePrice = values.product ? parseInt(values.product.basePrice)  : 0 ;
+    values.product.noOfUnits = values.product ? parseInt(values.product.noOfUnits)  : 1 ;
     values.product.bidStartDate = startDate ? startDate.$d : startDate;
     values.product.bidEndDate = endDate ? endDate.$d : endDate;
+
     checkValidation(values, (valid) => {
       if (valid) {
         getProductData(values);
@@ -163,30 +166,40 @@ const ProductAddModal = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
-              <Row>
+              <Row className="mb-3">
                 <Col xs={12} md={12}>
-                  <Form.Label htmlFor="basic-url">Image URL</Form.Label>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon3">
-                      https://
-                    </InputGroup.Text>
+                  <FormGroup>
+                  <Form.Label htmlFor="basic-url">Quantity *</Form.Label>
                     <Form.Control
-                      name="imageUrl"
+                      name="noOfUnits"
                       id="basic-url"
+                      placeholder="Enter quantity"
+                      type="number" 
                       aria-describedby="basic-addon3"
                       onChange={updateChange}
                     />
-                  </InputGroup>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} md={12}>
+                  <FormGroup>
+                  <Form.Label htmlFor="basic-url">Upload Image *</Form.Label>
+                    <Form.Control
+                      name="imageUrl"
+                      id="basic-url"
+                      type="file" 
+                      aria-describedby="basic-addon3"
+                      onChange={updateChange}
+                    />
+                  </FormGroup>
                 </Col>
               </Row>
             </Container>
           </Modal.Body>
           <Modal.Footer>
             <Row>
-              <Col xs={4} md={4}>
-                <Button onClick={toggle}>Close</Button>
-              </Col>
-              <Col xs={8} md={8}>
+              <Col>
                 <Button type="submit" variant="success">
                   Add Product
                 </Button>

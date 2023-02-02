@@ -101,9 +101,9 @@ const NavBar = () => {
   const AddWallAmount = (data) => {
     WalletAPI.postApi(data, (response) => {
       if (response.status === "SUCCESS") {
-        toast("Successfull wallet amount add");
+        toast("Successfull");
       }
-      getWallDeatil(setWalletDetails);
+      getWallDeatil(data.wallet.userName, setWalletDetails);
       handleWalletClose();
     });
   };
@@ -111,7 +111,9 @@ const NavBar = () => {
   const getUserInCookie = () => {
     let cookie = WebCookies.GetCookie("userin");
     setCurrentUser(JSON.parse(cookie));
-    getWallDeatil(JSON.parse(cookie).userName, setWalletDetails);
+    if(cookie){
+      getWallDeatil(JSON.parse(cookie).userName, setWalletDetails);
+    }
   };
 
   const logOutFun = () => {
@@ -127,6 +129,9 @@ const NavBar = () => {
         currentUser={currentUser}
         open={openWalletModal}
         walletDetails={walletDetails}
+        walletAmount={ walletDetails.data &&
+          walletDetails.data.wallet &&
+          walletDetails.data.wallet.amount}
         handleClose={handleWalletClose}
         AddWallAmount={(e) => AddWallAmount(e)}
       />

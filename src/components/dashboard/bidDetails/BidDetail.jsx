@@ -13,7 +13,6 @@ import "./BidDetail.css";
 import NavBar from "../../Layouts/NavBar";
 import GetProducts from "../../../Service/GetBidDetail";
 import { Timer } from "../../common/timer/Timer";
-import { Divider } from "@mui/material";
 
 const BidDetail = () => {
   const [bidId, setBidId] = useState("");
@@ -70,6 +69,14 @@ const BidDetail = () => {
                 </div>
                 <div>
                   <h6>{bidDetail.name}</h6>
+                </div>
+              </div>
+              <div className="d-flex justify-content-between mt-3">
+                <div>
+                  <h6>Quantity:</h6>
+                </div>
+                <div>
+                  <h6>{bidDetail.noOfUnits}</h6>
                 </div>
               </div>
               <div className="d-flex justify-content-between mt-3">

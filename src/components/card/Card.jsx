@@ -35,6 +35,10 @@ const CowCard = (props) => {
                 <Card.Body>
                   <Card.Title>{data.name}</Card.Title>
                   <Card.Text>
+                  Quantity: {data.noOfUnits}
+                    <span className="align-items-end"> </span>
+                  </Card.Text>
+                  <Card.Text>
                     Price: &#8377; {data.basePrice}
                     <span className="align-items-end"> </span>
                   </Card.Text>
@@ -46,6 +50,15 @@ const CowCard = (props) => {
                       <Col className="m-1 text-center z-index-1">
                       <Timer deadTime={data.bidStartDate} />
                       </Col>
+                      <Col className="m-1 d-grid text-center">
+                          <Button
+                            variant="success"
+                            size="small"
+                            disabled
+                          >
+                            Go to Biding
+                          </Button>
+                        </Col>
                     </Row>
                   ) : Date.parse(data.bidEndDate) < Date.parse(new Date()) ? (
                     <Row className="justify-content-center">
