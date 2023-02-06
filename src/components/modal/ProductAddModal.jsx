@@ -27,6 +27,7 @@ const ProductAddModal = (props) => {
   const [startDate, setStartDate] = useState(dayjs(new Date()));
   const [endDate, setEndDate] = useState(dayjs(new Date()));
   const [currentUser, setCurrentUser] = useState("");
+  const [image, setImage] = useState(null);
 
   let [state, setState] = useState({
     product: {
@@ -60,12 +61,17 @@ const ProductAddModal = (props) => {
     }));
   };
 
+  const handleImageUpload = (event) => {
+      const file = event.target.value;
+    setImage(file);
+  };
+
   const checkValidation = (data, callBack) => {
     let currentDate = Date.parse(new Date());
     let startDate = Date.parse(data && data.product.bidStartDate);
     let endDate = Date.parse(data && data.product.bidEndDate);
 
-    if ( endDate === (startDate || currentDate)) {
+    if (endDate === (startDate || currentDate)) {
       toast("End date must greater than start date");
       callBack(false);
     } else {
@@ -76,11 +82,15 @@ const ProductAddModal = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     let values = state;
-    values.product.basePrice = values.product ? parseInt(values.product.basePrice)  : 0 ;
-    values.product.noOfUnits = values.product ? parseInt(values.product.noOfUnits)  : 1 ;
+    values.product.basePrice = values.product
+      ? parseInt(values.product.basePrice)
+      : 0;
+    values.product.noOfUnits = values.product
+      ? parseInt(values.product.noOfUnits)
+      : 1;
+    values.product.imageUrl = image;
     values.product.bidStartDate = startDate ? startDate.$d : startDate;
     values.product.bidEndDate = endDate ? endDate.$d : endDate;
-
     checkValidation(values, (valid) => {
       if (valid) {
         getProductData(values);
@@ -166,31 +176,33 @@ const ProductAddModal = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
+
               <Row className="mb-3">
                 <Col xs={12} md={12}>
                   <FormGroup>
-                  <Form.Label htmlFor="basic-url">Quantity *</Form.Label>
+                    <Form.Label htmlFor="basic-url">Quantity *</Form.Label>
                     <Form.Control
                       name="noOfUnits"
                       id="basic-url"
                       placeholder="Enter quantity"
-                      type="number" 
+                      type="number"
                       aria-describedby="basic-addon3"
                       onChange={updateChange}
                     />
                   </FormGroup>
                 </Col>
               </Row>
+
               <Row>
                 <Col xs={12} md={12}>
                   <FormGroup>
-                  <Form.Label htmlFor="basic-url">Upload Image *</Form.Label>
-                    <Form.Control
+                    <Form.Label htmlFor="basic-url">Upload Image *</Form.Label>
+                    <input
                       name="imageUrl"
                       id="basic-url"
-                      type="file" 
+                      type="file"
                       aria-describedby="basic-addon3"
-                      onChange={updateChange}
+                      onChange={handleImageUpload}
                     />
                   </FormGroup>
                 </Col>

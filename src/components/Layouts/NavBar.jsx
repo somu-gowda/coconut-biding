@@ -63,7 +63,7 @@ const darkTheme = createTheme({
   },
 });
 
-const NavBar = () => {
+const NavBar = ({ getCurrentUser }) => {
   const [openLogoutModal, setLogoutModal] = React.useState(false);
   const [openWalletModal, setWalletModal] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState("");
@@ -110,8 +110,9 @@ const NavBar = () => {
 
   const getUserInCookie = () => {
     let cookie = WebCookies.GetCookie("userin");
+    getCurrentUser && getCurrentUser(JSON.parse(cookie));
     setCurrentUser(JSON.parse(cookie));
-    if(cookie){
+    if (cookie) {
       getWallDeatil(JSON.parse(cookie).userName, setWalletDetails);
     }
   };
@@ -129,9 +130,11 @@ const NavBar = () => {
         currentUser={currentUser}
         open={openWalletModal}
         walletDetails={walletDetails}
-        walletAmount={ walletDetails.data &&
+        walletAmount={
+          walletDetails.data &&
           walletDetails.data.wallet &&
-          walletDetails.data.wallet.amount}
+          walletDetails.data.wallet.amount
+        }
         handleClose={handleWalletClose}
         AddWallAmount={(e) => AddWallAmount(e)}
       />

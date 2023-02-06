@@ -1,0 +1,7 @@
+.card-hover :hover {
+  /* background-color: #e3cccc; */
+  padding: 20;
+  border-radius: 10;
+  cursor: "pointer";
+  transition: background-color 0.3s ease;
+}

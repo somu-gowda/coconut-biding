@@ -13,25 +13,40 @@ import "./BidDetail.css";
 import NavBar from "../../Layouts/NavBar";
 import GetProducts from "../../../Service/GetBidDetail";
 import { Timer } from "../../common/timer/Timer";
+import ProductsBiding from "./BidingAmountAPI";
+import { ToastContainer, toast } from "react-toastify";
+import BidHistory from "../../bidHistory/BidHistory";
 
 const BidDetail = () => {
-  const [bidId, setBidId] = useState("");
-  const [bidDetail, setBidDetail] = useState("");
-
   // Navigation hook
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [state, setState] = useState({
+    userProductBidding: {
+      userName: "",
+      productId: "",
+      biddingAmount: 0,
+    },
+  });
+  const [userName, setUserName] = useState("");
+  const [bidId, setBidId] = useState("");
+  const [bidDetail, setBidDetail] = useState("");
+  const [bidingHistory, setBidingHistory] = useState([]);
+
   useEffect(() => {
     getIdByUrl();
     getBidDetails(bidId);
+    getBidHistory(bidId);
   }, [bidId]);
 
+  // set product id
   function getIdByUrl() {
     let bidId = location && location.state.id;
     setBidId(bidId);
   }
 
+  // get product detail based by Id
   const getBidDetails = (bidId) => {
     if (bidId) {
       GetProducts.getBidById(bidId, (res) => {
@@ -44,10 +59,49 @@ const BidDetail = () => {
     }
   };
 
+  const getBidHistory = (id) => {
+    ProductsBiding.getBidById(id, (res) => {
+      if (res.data && res.data.userProductBiddings.length > 0) {
+        setBidingHistory(res.data.userProductBiddings);
+      } else {
+        toast(res && res.message);
+      }
+    });
+  };
+
+  // handle bid amount
+  const handleBidAmount = (event) => {
+    setState((state) => ({
+      userProductBidding: {
+        ...state.bid,
+        productId: bidId,
+        userName: userName,
+        [event.target.name]: parseInt(event.target.value),
+      },
+    }));
+  };
+
+  const getCurrentUser = (data) => {
+    setUserName(data.userName);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    ProductsBiding.postApi(state, (res) => {
+      if (res) {
+        toast(res.status);
+        getBidHistory(bidId);
+      } else {
+        toast(res && res.message);
+      }
+    });
+  };
+  console.log("bidingHistory__", bidingHistory);
   return (
     <Fragment>
+      <ToastContainer />
       <Row>
-        <NavBar />
+        <NavBar getCurrentUser={getCurrentUser} />
       </Row>
       <Container className="shadow mt-5 p-3">
         <Row>
@@ -97,22 +151,40 @@ const BidDetail = () => {
               </Col>
             </Row>
           </Col>
+
           <Col className="m-4">
-            <div className="d-flex justify-content-between mt-4">
-              <InputGroup>
-                <InputGroup.Text>&#8377;</InputGroup.Text>
-                <Form.Control
-                  name="basePrice"
-                  type="number"
-                  placeholder="Enter your bid amount"
-                  required
-                />
-              </InputGroup>
-            </div>
-            <div className="m-1 d-grid text-center">
-              <Button variant="success" size="small">
-                Bid Now
-              </Button>
+            <Form onSubmit={handleSubmit}>
+              <div className="d-flex justify-content-between mt-4">
+                <InputGroup>
+                  <InputGroup.Text>&#8377;</InputGroup.Text>
+                  <Form.Control
+                    name="biddingAmount"
+                    type="number"
+                    placeholder="Enter your bid amount"
+                    required
+                    onChange={handleBidAmount}
+                  />
+                </InputGroup>
+              </div>
+              <div className="mt-3 d-grid text-center">
+                <Button type="submit" variant="success" size="small">
+                  Bid Now
+                </Button>
+              </div>
+            </Form>
+            <div className="mt-4 overflow-auto">
+              <div className="mb-2 d-flex justify-content-start">
+                <h4 className="bid-history-header ">Bid History</h4>
+              </div>
+              <div className="d-flex justify-content-center">
+                {bidingHistory && bidingHistory.length > 0 ? (
+                  <BidHistory bidHistory={bidingHistory} />
+                ) : (
+                  <div className="d-flex justify-content-center mt-2">
+                    <h5> No Bid history,was found!. </h5>{" "}
+                  </div>
+                )}
+              </div>
             </div>
           </Col>
         </Row>

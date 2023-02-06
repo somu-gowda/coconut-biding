@@ -43,7 +43,8 @@ const LoginForm = () => {
       } else if (res && res.status === "SUCCESS") {
         handleCookies(res.data.user);
       } else {
-        toast(res && res.data.error.message);
+        let message = res && res.data ? res.data.error.message : res && res.message;
+        toast(message);
         setErrorMessage(res && res.data.error.message);
         setError(true);
       }

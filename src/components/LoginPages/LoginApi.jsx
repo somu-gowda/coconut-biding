@@ -10,7 +10,7 @@ class LoginApi {
         callBack(response.data);
       })
       .catch((err) => {
-        callBack(err.response);
+        callBack(err);
         console.log(err);
       });
   }
