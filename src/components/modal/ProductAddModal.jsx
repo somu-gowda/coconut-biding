@@ -62,8 +62,17 @@ const ProductAddModal = (props) => {
   };
 
   const handleImageUpload = (event) => {
-      const file = event.target.value;
-    setImage(file);
+      const file = event?.target?.files[0];
+      setBase64Image(file, setImage);
+  };
+
+   // Set imageurl in state
+   const setBase64Image = (file, setImage) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setImage(reader.result);
+    };
   };
 
   const checkValidation = (data, callBack) => {
@@ -197,7 +206,7 @@ const ProductAddModal = (props) => {
                 <Col xs={12} md={12}>
                   <FormGroup>
                     <Form.Label htmlFor="basic-url">Upload Image *</Form.Label>
-                    <input
+                    <Form.Control
                       name="imageUrl"
                       id="basic-url"
                       type="file"

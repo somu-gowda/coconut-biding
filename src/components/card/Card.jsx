@@ -42,7 +42,7 @@ const CowCard = (props) => {
                 </Card.Text>
                 {Date.parse(data.bidStartDate) > Date.parse(new Date()) ? (
                   <Row className="justify-content-center">
-                    <span className="mt-1 bg-success text-white">
+                    <span className="mt-1 bg-success text-white text-center">
                       Bid Starts In
                     </span>{" "}
                     <Col className="overflow-auto m-1 text-center">

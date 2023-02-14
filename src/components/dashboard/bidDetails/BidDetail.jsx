@@ -17,6 +17,9 @@ import ProductsBiding from "./BidingAmountAPI";
 import { ToastContainer, toast } from "react-toastify";
 import BidHistory from "../../bidHistory/BidHistory";
 
+const io = require("socket.io-client");
+const socket = io();
+
 const BidDetail = () => {
   // Navigation hook
   const navigate = useNavigate();
@@ -33,16 +36,24 @@ const BidDetail = () => {
   const [bidId, setBidId] = useState("");
   const [bidDetail, setBidDetail] = useState("");
   const [bidingHistory, setBidingHistory] = useState([]);
+  const [time, setTime] = useState();
 
   useEffect(() => {
     getIdByUrl();
     getBidDetails(bidId);
     getBidHistory(bidId);
+
+    //handle to listen updateBid from server socket
+    socket.on("newBidding", function (bidObj) {
+    });
   }, [bidId]);
 
   // set product id
   function getIdByUrl() {
-    let bidId = location && location.state.id;
+    let bidId = location && location.state && location.state.id;
+    if (!bidId) {
+      navigate(`/page-not-found`);
+    }
     setBidId(bidId);
   }
 
@@ -85,6 +96,7 @@ const BidDetail = () => {
     setUserName(data.userName);
   };
 
+  // handle bidding amount submit
   const handleSubmit = (event) => {
     event.preventDefault();
     ProductsBiding.postApi(state, (res) => {
@@ -96,7 +108,12 @@ const BidDetail = () => {
       }
     });
   };
-  console.log("bidingHistory__", bidingHistory);
+
+  // getting bid item time to disable biding button
+  const getTimeInterVal = (time) => {
+    setTime(time);
+  };
+
   return (
     <Fragment>
       <ToastContainer />
@@ -144,10 +161,13 @@ const BidDetail = () => {
             </Row>
             <Row className="m-5">
               <span className="mt-3 d-grid bg-danger text-white text-center">
-                Bid Ends In
+                {Math.sign(time) === -1 ? "Bid Ended" : "Bid Ends In"}
               </span>
               <Col className="m-1 text-center z-index-1">
-                <Timer deadTime={bidDetail.bidEndDate} />
+                <Timer
+                  deadTime={bidDetail.bidEndDate}
+                  getTimeInterVal={getTimeInterVal}
+                />
               </Col>
             </Row>
           </Col>
@@ -167,7 +187,12 @@ const BidDetail = () => {
                 </InputGroup>
               </div>
               <div className="mt-3 d-grid text-center">
-                <Button type="submit" variant="success" size="small">
+                <Button
+                  type="submit"
+                  variant="success"
+                  size="small"
+                  disabled={Math.sign(time) === -1 ? true : false}
+                >
                   Bid Now
                 </Button>
               </div>

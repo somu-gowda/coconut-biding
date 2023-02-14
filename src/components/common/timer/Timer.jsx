@@ -6,7 +6,7 @@ const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
 
-export const Timer = ({ deadTime }) => {
+export const Timer = ({ deadTime, getTimeInterVal }) => {
   const parsedDeadline = useMemo(() => Date.parse(deadTime), [deadTime]);
   const [time, setTime] = useState(parsedDeadline - Date.now());
 
@@ -15,7 +15,7 @@ export const Timer = ({ deadTime }) => {
       () => setTime(parsedDeadline - Date.now()),
       1000
     );
-
+    getTimeInterVal && getTimeInterVal(parsedDeadline - Date.now());
     return () => clearInterval(interval);
   }, [parsedDeadline]);
 
