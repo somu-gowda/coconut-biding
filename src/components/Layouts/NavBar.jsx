@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import WalletAPI from "../modal/wallet/WalletApi";
 import { ToastContainer, toast } from "react-toastify";
 
-function appBarLabel(label, callBack) {
+function appBarLabel(label, currentUser, callBack) {
   const logoutModal = (data, callBack) => {
     callBack(data);
   };
@@ -24,6 +24,7 @@ function appBarLabel(label, callBack) {
       <Typography variant="h4" noWrap component="div" sx={{ flexGrow: 1 }}>
         {label}
       </Typography>
+      <span style={{marginRight: "25px", fontSize: "large"}}>{currentUser?.userName}</span>
       <span onClick={() => logoutModal("wallet", callBack)}>
         <abbr title="Wallet">
           <FaWallet
@@ -146,7 +147,7 @@ const NavBar = ({ getCurrentUser }) => {
       <Stack spacing={2} sx={{ flexGrow: 1 }}>
         <ThemeProvider theme={darkTheme}>
           <AppBar position="static" color="success">
-            {appBarLabel("Coconut Bid", (data) => {
+            {appBarLabel("Coconut Bid", currentUser,  (data) => {
               logoutToggle(data);
             })}
           </AppBar>
