@@ -17,9 +17,6 @@ import ProductsBiding from "./BidingAmountAPI";
 import { ToastContainer, toast } from "react-toastify";
 import BidHistory from "../../bidHistory/BidHistory";
 
-const io = require("socket.io-client");
-const socket = io();
-
 const BidDetail = () => {
   // Navigation hook
   const navigate = useNavigate();
@@ -42,10 +39,10 @@ const BidDetail = () => {
     getIdByUrl();
     getBidDetails(bidId);
     getBidHistory(bidId);
-
-    //handle to listen updateBid from server socket
-    socket.on("newBidding", function (bidObj) {
-    });
+    
+    setInterval(() => {
+      bidId && getBidHistory(bidId);
+    }, 10000);
   }, [bidId]);
 
   // set product id
@@ -111,6 +108,9 @@ const BidDetail = () => {
 
   // getting bid item time to disable biding button
   const getTimeInterVal = (time) => {
+    if (time && Math.sign(time) === -1) {
+      getBidDetails(bidId);
+    }
     setTime(time);
   };
 

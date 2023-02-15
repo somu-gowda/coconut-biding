@@ -9,6 +9,7 @@ import AddProducts from "../modal/ProductAddApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import NoRecordsFound from "../../components/NoRecordsFound"
 
 const PRODUCER = "PRODUCER";
 
@@ -16,6 +17,7 @@ const DashboardPage = () => {
   const [state, setState] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [addProductModalOpen, setAddProductModaloOpen] = useState(false);
+  const [time, setTime] = useState();
 
   // Navigation hook
   const navigate = useNavigate();
@@ -23,6 +25,10 @@ const DashboardPage = () => {
   useEffect(() => {
     getUserInCookie();
     getCoconutData(setState);
+
+    setInterval(() => {
+      getCoconutData(setState);
+    }, 10000);
   }, []);
 
   const getCoconutData = (setState) => {
@@ -54,25 +60,48 @@ const DashboardPage = () => {
     });
   };
 
+  const getInterValTime = (time) => {
+    setTime(time);
+  };
+
+  if (time && Math.sign(time) === -1) {
+    getCoconutData(setState);
+  }
+
   return (
     <Fragment>
       <NavBar />
       <ToastContainer />
       {currentUser.role === PRODUCER ? (
-        <Container >
+        <Container>
           <Row className="mt-3 ">
-            <Col xs={{ span: 6, offset: 6 }} sm={{ span: 8, offset: 8 }} md={{ span: 10, offset: 10 }} lg={{ span: 12, offset: 12 }} >
+            <Col
+              xs={{ span: 6, offset: 6 }}
+              sm={{ span: 8, offset: 8 }}
+              md={{ span: 10, offset: 10 }}
+              lg={{ span: 12, offset: 12 }}
+            >
               <Button variant="success" onClick={addProductModalToggle}>
                 + Add Product
               </Button>
             </Col>
           </Row>
-         </Container>
+        </Container>
       ) : (
         ""
       )}
       <div className="coconut-cards">
-        <CowCard coconutData={state} currentUser={currentUser} />
+        {state && state.length > 0 ? (
+          <CowCard
+            coconutData={state}
+            currentUser={currentUser}
+            getInterValTime={getInterValTime}
+          />
+        ) : (
+          <NoRecordsFound
+            message="No Bid Yet"
+            description={`${currentUser.role === PRODUCER ? "Add Bid Now" : "Wait until the producer submits a Bid."} `} />
+        )}
       </div>
       <ProductAddModal
         open={addProductModalOpen}

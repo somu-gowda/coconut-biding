@@ -7,14 +7,17 @@ import { useNavigate } from "react-router-dom";
 
 const CONSUMER = "CONSUMER";
 
-const CowCard = (props) => {
-  const { coconutData, currentUser } = props;
+const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   // Navigation hook
   const navigate = useNavigate();
 
   const getBidDetailPage = (id) => {
     navigate(`/details/${id}`, { state: { id: id } });
   };
+
+  const getTimeInterVal = (time) => { 
+    getInterValTime && getInterValTime(time);
+  }
 
   return (
     <Fragment>
@@ -46,10 +49,10 @@ const CowCard = (props) => {
                       Bid Starts In
                     </span>{" "}
                     <Col className="overflow-auto m-1 text-center">
-                      <Timer deadTime={data.bidStartDate} />
+                      <Timer deadTime={data.bidStartDate} getTimeInterVal={getTimeInterVal} />
                     </Col>
                     {currentUser.role === CONSUMER ? (
-                      <div className="m-1 d-grid text-center">
+                      <div className="mt-1 d-grid text-center">
                         <Button variant="success" size="small" disabled>
                           Go to Biding
                         </Button>
@@ -64,10 +67,10 @@ const CowCard = (props) => {
                       Bid Ended
                     </span>
                     <Col className="overflow-auto m-1 text-center">
-                      <Timer deadTime={data.bidEndDate} />
+                      <Timer deadTime={data.bidEndDate} getTimeInterVal={getTimeInterVal} />
                     </Col>
                     {currentUser.role === CONSUMER ? (
-                      <div className="m-1 d-grid text-center">
+                      <div className="mt-1 d-grid text-center">
                         <Button
                           variant="success"
                           size="small"
@@ -86,10 +89,10 @@ const CowCard = (props) => {
                       Bid Ends In
                     </span>
                     <Col className="overflow-auto m-1 text-center">
-                      <Timer deadTime={data.bidEndDate} />
+                      <Timer deadTime={data.bidEndDate} getTimeInterVal={getTimeInterVal} />
                     </Col>
                     {currentUser.role === CONSUMER ? (
-                      <div className="m-1 d-grid text-center">
+                      <div className="mt-1 d-grid text-center">
                         <Button
                           variant="success"
                           size="small"
