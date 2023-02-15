@@ -67,6 +67,10 @@ const BidDetail = () => {
     }
   };
 
+  if(!bidDetail){
+    navigate(`/page-not-found`);
+  }
+
   const getBidHistory = (id) => {
     ProductsBiding.getBidById(id, (res) => {
       if (res.data && res.data.userProductBiddings.length > 0) {
@@ -129,8 +133,8 @@ const BidDetail = () => {
                 height={250}
                 className="shadow flex-warp"
                 variant="success"
-                alt={bidDetail.name}
-                src={bidDetail.imageUrl}
+                alt={bidDetail?.name}
+                src={bidDetail?.imageUrl}
               />
             </div>
             <Row className="m-5">
@@ -139,7 +143,7 @@ const BidDetail = () => {
                   <h6>Name:</h6>
                 </div>
                 <div>
-                  <h6>{bidDetail.name}</h6>
+                  <h6>{bidDetail?.name}</h6>
                 </div>
               </div>
               <div className="d-flex justify-content-between mt-3">
@@ -147,7 +151,7 @@ const BidDetail = () => {
                   <h6>Quantity:</h6>
                 </div>
                 <div>
-                  <h6>{bidDetail.noOfUnits}</h6>
+                  <h6>{bidDetail?.noOfUnits}</h6>
                 </div>
               </div>
               <div className="d-flex justify-content-between mt-3">
@@ -155,7 +159,7 @@ const BidDetail = () => {
                   <h6>Base Price:</h6>
                 </div>
                 <div>
-                  <h6>&#8377; {bidDetail.basePrice}</h6>
+                  <h6>&#8377; {bidDetail?.basePrice}</h6>
                 </div>
               </div>
             </Row>
@@ -165,7 +169,7 @@ const BidDetail = () => {
               </span>
               <Col className="m-1 text-center z-index-1">
                 <Timer
-                  deadTime={bidDetail.bidEndDate}
+                  deadTime={bidDetail?.bidEndDate}
                   getTimeInterVal={getTimeInterVal}
                 />
               </Col>
