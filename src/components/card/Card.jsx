@@ -5,14 +5,12 @@ import { Timer } from "../common/timer/Timer";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
 
-const CONSUMER = "CONSUMER";
-
 const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   // Navigation hook
   const navigate = useNavigate();
 
   const getBidDetailPage = (id) => {
-    navigate(`/details/${id}`, { state: { id: id } });
+    navigate(`/details/${id}`, { state: { id: id, currentUser: currentUser } });
   };
 
   const getTimeInterVal = (time) => { 
@@ -51,15 +49,13 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
                     <Col className="overflow-auto m-1 text-center">
                       <Timer deadTime={data.bidStartDate} getTimeInterVal={getTimeInterVal} />
                     </Col>
-                    {currentUser.role === CONSUMER ? (
+                    
                       <div className="mt-1 d-grid text-center">
                         <Button variant="success" size="small" disabled>
                           Go to Biding
                         </Button>
                       </div>
-                    ) : (
-                      ""
-                    )}
+                    
                   </Row>
                 ) : Date.parse(data.bidEndDate) < Date.parse(new Date()) ? (
                   <Row className="justify-content-center">
@@ -69,7 +65,7 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
                     <Col className="overflow-auto m-1 text-center">
                       <Timer deadTime={data.bidEndDate} getTimeInterVal={getTimeInterVal} />
                     </Col>
-                    {currentUser.role === CONSUMER ? (
+
                       <div className="mt-1 d-grid text-center">
                         <Button
                           variant="success"
@@ -79,9 +75,7 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
                           Go to Biding
                         </Button>
                       </div>
-                    ) : (
-                      ""
-                    )}
+                   
                   </Row>
                 ) : (
                   <Row className="justify-content-center">
@@ -91,7 +85,7 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
                     <Col className="overflow-auto m-1 text-center">
                       <Timer deadTime={data.bidEndDate} getTimeInterVal={getTimeInterVal} />
                     </Col>
-                    {currentUser.role === CONSUMER ? (
+
                       <div className="mt-1 d-grid text-center">
                         <Button
                           variant="success"
@@ -101,9 +95,7 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
                           Go to Biding
                         </Button>
                       </div>
-                    ) : (
-                      ""
-                    )}
+                    
                   </Row>
                 )}
               </Card.Body>

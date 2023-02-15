@@ -17,6 +17,8 @@ import ProductsBiding from "./BidingAmountAPI";
 import { ToastContainer, toast } from "react-toastify";
 import BidHistory from "../../bidHistory/BidHistory";
 
+const CONSUMER = "CONSUMER";
+
 const BidDetail = () => {
   // Navigation hook
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const BidDetail = () => {
     getIdByUrl();
     getBidDetails(bidId);
     getBidHistory(bidId);
-    
+
     setInterval(() => {
       bidId && getBidHistory(bidId);
     }, 10000);
@@ -173,30 +175,35 @@ const BidDetail = () => {
           </Col>
 
           <Col className="m-4">
-            <Form onSubmit={handleSubmit}>
-              <div className="d-flex justify-content-between mt-4">
-                <InputGroup>
-                  <InputGroup.Text>&#8377;</InputGroup.Text>
-                  <Form.Control
-                    name="biddingAmount"
-                    type="number"
-                    placeholder="Enter your bid amount"
-                    required
-                    onChange={handleBidAmount}
-                  />
-                </InputGroup>
-              </div>
-              <div className="mt-3 d-grid text-center">
-                <Button
-                  type="submit"
-                  variant="success"
-                  size="small"
-                  disabled={Math.sign(time) === -1 ? true : false}
-                >
-                  Bid Now
-                </Button>
-              </div>
-            </Form>
+            {location?.state?.currentUser.role === CONSUMER ? (
+              <Form onSubmit={handleSubmit}>
+                <div className="d-flex justify-content-between mt-4">
+                  <InputGroup>
+                    <InputGroup.Text>&#8377;</InputGroup.Text>
+                    <Form.Control
+                      name="biddingAmount"
+                      type="number"
+                      placeholder="Enter your bid amount"
+                      required
+                      onChange={handleBidAmount}
+                    />
+                  </InputGroup>
+                </div>
+                <div className="mt-3 d-grid text-center">
+                  <Button
+                    type="submit"
+                    variant="success"
+                    size="small"
+                    disabled={Math.sign(time) === -1 ? true : false}
+                  >
+                    Bid Now
+                  </Button>
+                </div>
+              </Form>
+            ) : (
+              ""
+            )}
+
             <div className="mt-4 overflow-auto">
               <div className="mb-2 d-flex justify-content-start">
                 <h4 className="bid-history-header ">Bid History</h4>
