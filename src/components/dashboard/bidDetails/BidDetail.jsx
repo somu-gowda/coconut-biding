@@ -67,10 +67,6 @@ const BidDetail = () => {
     }
   };
 
-  if(!bidDetail){
-    navigate(`/page-not-found`);
-  }
-
   const getBidHistory = (id) => {
     ProductsBiding.getBidById(id, (res) => {
       if (res.data && res.data.userProductBiddings.length > 0) {

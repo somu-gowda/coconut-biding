@@ -11,7 +11,6 @@ class LoginApi {
       })
       .catch((err) => {
         callBack(err);
-        console.log(err);
       });
   }
 }
