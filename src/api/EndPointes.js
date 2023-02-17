@@ -1,4 +1,4 @@
-const REACT_APP_API_URL = "https://0822-36-255-87-126.in.ngrok.io/api";
+const REACT_APP_API_URL = "http://localhost:8000/api";
 
 const appApi = (path) => `${REACT_APP_API_URL}/${path}`;
 

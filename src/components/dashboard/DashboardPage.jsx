@@ -9,7 +9,7 @@ import AddProducts from "../modal/ProductAddApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import NoRecordsFound from "../../components/NoRecordsFound"
+import NoRecordsFound from "../../components/NoRecordsFound";
 
 const PRODUCER = "PRODUCER";
 
@@ -22,16 +22,19 @@ const DashboardPage = () => {
   // Navigation hook
   const navigate = useNavigate();
 
+ 
   useEffect(() => {
     getUserInCookie();
-    getCoconutData(setState);
-
-    setInterval(() => {
-      getCoconutData(setState);
-    }, 10000);
   }, []);
 
-  const getCoconutData = (setState) => {
+  useEffect(() => {
+    currentUser && getCoconutData();
+    setInterval(() => {
+      currentUser && getCoconutData();
+    }, 10000);
+  }, [currentUser]);
+
+  const getCoconutData = () => {
     AddProducts.getApi((res) => {
       if (res) {
         setState(res.data.products);
@@ -54,7 +57,7 @@ const DashboardPage = () => {
     AddProducts.postApi(data, (res) => {
       if (res && res.status === "SUCCESS") {
         toast("Successfully product is added");
-        getCoconutData(setState);
+        getCoconutData();
         setAddProductModaloOpen();
       }
     });
@@ -63,10 +66,6 @@ const DashboardPage = () => {
   const getInterValTime = (time) => {
     setTime(time);
   };
-
-  if (time && Math.sign(time) === -1) {
-    getCoconutData(setState);
-  }
 
   return (
     <Fragment>
@@ -100,7 +99,12 @@ const DashboardPage = () => {
         ) : (
           <NoRecordsFound
             message="No Bid Yet"
-            description={`${currentUser.role === PRODUCER ? "Add Bid Now" : "Wait until the producer submits a Bid."} `} />
+            description={`${
+              currentUser.role === PRODUCER
+                ? "Add Bid Now"
+                : "Wait until the producer submits a Bid."
+            } `}
+          />
         )}
       </div>
       <ProductAddModal
