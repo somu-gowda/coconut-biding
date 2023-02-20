@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { Timer } from "../common/timer/Timer";
-import "./Card.css";
 import { useNavigate } from "react-router-dom";
 import WalletAPI from "../modal/wallet/WalletApi";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   // Navigation hook
   const navigate = useNavigate();
+  // state
   const [walletDetails, setWalletDetails] = useState("");
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   // Consumer wallate amount validation
   const getBidDetailPage = (id, basePrice) => {
     let amount = walletDetails?.data?.wallet?.amount;
-   
+
     if (amount >= 1.5 * basePrice) {
       navigate(`/details/${id}`, {
         state: { id: id, currentUser: currentUser },
@@ -34,6 +34,7 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
     }
   };
 
+  // get bidding time to validate
   const getTimeInterVal = (time) => {
     getInterValTime && getInterValTime(time);
   };

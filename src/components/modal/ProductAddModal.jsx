@@ -22,6 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductAddModal = (props) => {
+  // get props
   const { open, toggle, getProductData } = props;
 
   const [startDate, setStartDate] = useState(dayjs(new Date()));
@@ -45,6 +46,7 @@ const ProductAddModal = (props) => {
     getUserInCookie();
   }, []);
 
+  // get cookies
   const getUserInCookie = () => {
     let cookie = WebCookies.GetCookie("userin");
     setCurrentUser(JSON.parse(cookie));
@@ -61,13 +63,14 @@ const ProductAddModal = (props) => {
     }));
   };
 
+  // handle image upload
   const handleImageUpload = (event) => {
-      const file = event?.target?.files[0];
-      setBase64Image(file, setImage);
+    const file = event?.target?.files[0];
+    setBase64Image(file, setImage);
   };
 
-   // Set imageurl in state
-   const setBase64Image = (file, setImage) => {
+  // Set imageurl in state
+  const setBase64Image = (file, setImage) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -75,6 +78,7 @@ const ProductAddModal = (props) => {
     };
   };
 
+  // havndle validation
   const checkValidation = (data, callBack) => {
     let currentDate = Date.parse(new Date());
     let startDate = Date.parse(data && data.product.bidStartDate);
@@ -88,6 +92,7 @@ const ProductAddModal = (props) => {
     }
   };
 
+  // handle submit
   const handleSubmit = (event) => {
     event.preventDefault();
     let values = state;

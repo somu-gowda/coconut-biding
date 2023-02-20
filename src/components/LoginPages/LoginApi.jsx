@@ -3,6 +3,7 @@ import axios from "axios";
 import { endpoints } from "../../api/EndPointes";
 
 class LoginApi {
+  // login Api
   static LoginApi(data, callBack) {
     axios
       .post(`${endpoints().userLogin}`, data)

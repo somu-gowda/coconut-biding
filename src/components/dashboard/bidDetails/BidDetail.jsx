@@ -9,7 +9,6 @@ import {
   Row,
 } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./BidDetail.css";
 import NavBar from "../../Layouts/NavBar";
 import GetProducts from "../../../Service/GetBidDetail";
 import { Timer } from "../../common/timer/Timer";

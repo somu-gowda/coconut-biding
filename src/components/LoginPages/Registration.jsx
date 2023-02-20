@@ -18,10 +18,12 @@ import CardHeader from "react-bootstrap/esm/CardHeader";
 
 // Api
 import RegisterApi from "./RegisterApi";
+// roles
 const PRODUCER = "PRODUCER";
 const CONSUMER = "CONSUMER";
 
 const Registration = (props) => {
+  // state
   let [state, setState] = useState({
     user: {
       username: "",
@@ -51,6 +53,7 @@ const Registration = (props) => {
     }));
   };
 
+  // get role
   const getRoles = (data) => {
     if (data.role === "producer") {
       return PRODUCER;

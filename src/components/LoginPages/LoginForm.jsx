@@ -17,6 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
+  // state
   let [state, setState] = useState({
     user: {
       userName: "",
@@ -34,6 +35,7 @@ const LoginForm = () => {
     navigate("/dashboard");
   };
 
+  // handle submit
   const handleSubmit = (event) => {
     event.preventDefault();
     LoginApi.LoginApi(state, (res) => {
@@ -43,7 +45,8 @@ const LoginForm = () => {
       } else if (res && res.status === "SUCCESS") {
         handleCookies(res.data.user);
       } else {
-        let message = res && res.data ? res.data.error.message : res && res.message;
+        let message =
+          res && res.data ? res.data.error.message : res && res.message;
         toast(message);
         setErrorMessage(res && res.data.error.message);
         setError(true);

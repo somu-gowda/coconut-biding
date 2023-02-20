@@ -22,11 +22,12 @@ const DashboardPage = () => {
   // Navigation hook
   const navigate = useNavigate();
 
- 
+  //  useeffect for get cookies
   useEffect(() => {
     getUserInCookie();
   }, []);
 
+  // useeffect for get biding list
   useEffect(() => {
     currentUser && getCoconutData();
     setInterval(() => {
@@ -34,6 +35,7 @@ const DashboardPage = () => {
     }, 10000);
   }, [currentUser]);
 
+  // get bidding list
   const getCoconutData = () => {
     AddProducts.getApi((res) => {
       if (res) {
@@ -43,16 +45,18 @@ const DashboardPage = () => {
       }
     });
   };
-
+  // get cookies function
   const getUserInCookie = () => {
     let cookie = WebCookies.GetCookie("userin");
     setCurrentUser(JSON.parse(cookie));
   };
 
+  // add product modall toggle
   const addProductModalToggle = () => {
     setAddProductModaloOpen(!addProductModalOpen);
   };
 
+  // add bidding data API
   const getProductData = (data) => {
     AddProducts.postApi(data, (res) => {
       if (res && res.status === "SUCCESS") {
@@ -63,6 +67,7 @@ const DashboardPage = () => {
     });
   };
 
+  // get card time
   const getInterValTime = (time) => {
     setTime(time);
   };

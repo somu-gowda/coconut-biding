@@ -3,6 +3,7 @@ import axios from "axios";
 import { endpoints } from "../../api/EndPointes";
 
 class AddProducts {
+  // product post API
   static postApi(data, callBack) {
     axios
       .post(`${endpoints().productAPI}`, data)
@@ -15,7 +16,7 @@ class AddProducts {
       });
   }
 
-
+  // product get API
   static getApi(callBack) {
     axios
       .get(`${endpoints().productAPI}`)
@@ -27,7 +28,6 @@ class AddProducts {
         console.log(err);
       });
   }
-
 }
 
 export default AddProducts;
