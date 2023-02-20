@@ -25,6 +25,9 @@ const Registration = (props) => {
   let [state, setState] = useState({
     user: {
       username: "",
+      phone: "",
+      aadhar: "",
+      email: "",
       password: "",
       role: "",
     },
@@ -62,6 +65,9 @@ const Registration = (props) => {
     let registerValues = {
       user: {
         userName: user.username,
+        phone: user.phone,
+        aadhar: user.aadhar,
+        email: user.email,
         password: user.password,
         role: getRoles(user),
       },
@@ -111,17 +117,72 @@ const Registration = (props) => {
                         : ""}
                     </span>
                   </FormGroup>
+                  <Row>
+                    <Form.Group
+                      as={Col}
+                      md="6"
+                      className="mb-3"
+                      controlId="formBasicEmail"
+                    >
+                      <Form.Label>Phone Number *</Form.Label>
+                      <Form.Control
+                        name="phone"
+                        type="number"
+                        placeholder="Enter phone number"
+                        required
+                        onChange={updateChange}
+                      />
+                    </Form.Group>
 
-                  <FormGroup className="mb-3" controlId="password">
-                    <FormLabel>Password *</FormLabel>
-                    <FormControl
-                      name="password"
-                      type="password"
-                      placeholder="Password"
-                      required
-                      onChange={updateChange}
-                    />
-                  </FormGroup>
+                    <Form.Group
+                      as={Col}
+                      md="6"
+                      className="mb-3"
+                      controlId="formBasicEmail"
+                    >
+                      <Form.Label>Aadhar Number *</Form.Label>
+                      <Form.Control
+                        name="aadhar"
+                        type="number"
+                        placeholder="Enter aadhar number"
+                        required
+                        onChange={updateChange}
+                      />
+                    </Form.Group>
+                  </Row>
+                  <Row>
+                    <Form.Group
+                      as={Col}
+                      md="6"
+                      className="mb-3"
+                      controlId="formBasicEmail"
+                    >
+                      <Form.Label>Email *</Form.Label>
+                      <Form.Control
+                        name="email"
+                        type="email"
+                        placeholder="Enter email"
+                        required
+                        onChange={updateChange}
+                      />
+                    </Form.Group>
+
+                    <FormGroup
+                      as={Col}
+                      md="6"
+                      className="mb-3"
+                      controlId="password"
+                    >
+                      <FormLabel>Password *</FormLabel>
+                      <FormControl
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        required
+                        onChange={updateChange}
+                      />
+                    </FormGroup>
+                  </Row>
                   <FormGroup className="mb-3" controlId="role">
                     <FormLabel>Role *</FormLabel>
                     <FormSelect
