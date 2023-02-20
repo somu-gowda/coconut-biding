@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import WalletAPI from "../modal/wallet/WalletApi";
 import { ToastContainer, toast } from "react-toastify";
 
+// constants
+const CONSUMER = "CONSUMER";
+
 const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   // Navigation hook
   const navigate = useNavigate();
@@ -24,8 +27,13 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   // Consumer wallate amount validation
   const getBidDetailPage = (id, basePrice) => {
     let amount = walletDetails?.data?.wallet?.amount;
+    let role = currentUser?.role;
 
-    if (amount >= 1.5 * basePrice) {
+    if (role !== CONSUMER) {
+      navigate(`/details/${id}`, {
+        state: { id: id, currentUser: currentUser },
+      });
+    } else if (amount >= 1.5 * basePrice) {
       navigate(`/details/${id}`, {
         state: { id: id, currentUser: currentUser },
       });
