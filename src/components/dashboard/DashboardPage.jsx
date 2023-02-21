@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import NoRecordsFound from "../../components/NoRecordsFound";
+import Spinner from "../Spinner";
 
 const PRODUCER = "PRODUCER";
 
@@ -19,6 +20,7 @@ const DashboardPage = () => {
   const [addProductModalOpen, setAddProductModaloOpen] = useState(false);
   const [time, setTime] = useState();
   const [walletDetails, setWalletDetails] = React.useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Navigation hook
   const navigate = useNavigate();
@@ -38,10 +40,13 @@ const DashboardPage = () => {
 
   // get bidding list
   const getCoconutData = () => {
+    setIsLoading(true);
     AddProducts.getApi((res) => {
       if (res) {
+        setIsLoading(false);
         setState(res.data.products);
       } else {
+        setIsLoading(false);
         navigate("/page-not-found");
       }
     });
@@ -75,6 +80,11 @@ const DashboardPage = () => {
 
   const getWalletDetails = (data) => {
    setWalletDetails(data?.data?.wallet);
+  }
+
+   // spinner
+   if (isLoading) {
+    return <Spinner />;
   }
 
   return (
