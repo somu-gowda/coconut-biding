@@ -68,7 +68,8 @@ const darkTheme = createTheme({
   },
 });
 
-const NavBar = ({ getCurrentUser }) => {
+const NavBar = (props) => {
+  const { getCurrentUser, getWalletDetails } = props;
   // state
   const [openLogoutModal, setLogoutModal] = React.useState(false);
   const [openWalletModal, setWalletModal] = React.useState(false);
@@ -106,6 +107,7 @@ const NavBar = ({ getCurrentUser }) => {
   // Wallet API
   const getWallDeatil = (userName, callBack) => {
     WalletAPI.getApi(userName, callBack);
+    getWalletDetails && getWalletDetails(walletDetails);
   };
 
   // post wallet amount

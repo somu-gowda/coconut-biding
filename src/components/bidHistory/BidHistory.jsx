@@ -3,10 +3,24 @@ import "./BidHistory.css";
 
 class BidHistory extends Component {
   render() {
-    var historyList = this.props.bidHistory.map((data) => {
+    var historyList = this.props.bidHistory.map((data, index) => {
       return (
         <li className="list-group-item" key={data._id}>
           <span>{data.userName}</span>{" "}
+          {Math.sign(this.props.time) === -1 && index === 0 ? (
+            <span
+              style={{
+                float: "left",
+                border: "2px solid red",
+                color: "red",
+                marginRight: "5px",
+              }}
+            >
+              {"SOLD TO"}
+            </span>
+          ) : (
+            ""
+          )}
           <span style={{ float: "right" }}>&#8377; {data.biddingAmount}</span>
         </li>
       );
@@ -14,7 +28,6 @@ class BidHistory extends Component {
 
     return (
       <div className="col-md-12 overflow-auto">
-       
         <ul className="bid-history-list list-group ">
           <li className="list-group-item">
             <span>Bidder</span>{" "}

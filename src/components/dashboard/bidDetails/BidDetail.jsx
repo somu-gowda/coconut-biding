@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Col,
@@ -15,6 +15,7 @@ import { Timer } from "../../common/timer/Timer";
 import ProductsBiding from "./BidingAmountAPI";
 import { ToastContainer, toast } from "react-toastify";
 import BidHistory from "../../bidHistory/BidHistory";
+import TimeReminder from "../../timeReminder";
 
 const CONSUMER = "CONSUMER";
 
@@ -35,6 +36,7 @@ const BidDetail = () => {
   const [bidDetail, setBidDetail] = useState("");
   const [bidingHistory, setBidingHistory] = useState([]);
   const [time, setTime] = useState();
+  const [countTime, setCountTime] = useState();
 
   useEffect(() => {
     getIdByUrl();
@@ -71,6 +73,8 @@ const BidDetail = () => {
   const getBidHistory = (id) => {
     ProductsBiding.getBidById(id, (res) => {
       if (res.data && res.data.userProductBiddings.length > 0) {
+        let bidTime = res.data.userProductBiddings[0]?.updatedAt;
+        setCountTime(Date.parse(bidTime));
         setBidingHistory(res.data.userProductBiddings);
       } else {
         toast(res && res.message);
@@ -174,6 +178,14 @@ const BidDetail = () => {
           </Col>
 
           <Col className="m-4">
+            {time && Math.sign(time) !== -1 && bidingHistory.length > 0 ? (
+              <Row>
+                <TimeReminder countTime={countTime} />
+              </Row>
+            ) : (
+              ""
+            )}
+
             {location?.state?.currentUser.role === CONSUMER ? (
               <Form onSubmit={handleSubmit}>
                 <div className="d-flex justify-content-between mt-4">
@@ -209,7 +221,7 @@ const BidDetail = () => {
               </div>
               <div className="d-flex justify-content-center">
                 {bidingHistory && bidingHistory.length > 0 ? (
-                  <BidHistory bidHistory={bidingHistory} />
+                  <BidHistory bidHistory={bidingHistory} time={time} />
                 ) : (
                   <div className="d-flex justify-content-center mt-2">
                     <h5> No Bid history,was found!. </h5>{" "}

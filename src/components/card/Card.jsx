@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 // constants
 const CONSUMER = "CONSUMER";
 
-const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
+const CoConutCard = ({ coconutData, currentUser, getInterValTime, wallet }) => {
   // Navigation hook
   const navigate = useNavigate();
   // state
@@ -18,7 +18,7 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   useEffect(() => {
     let name = currentUser?.userName;
     getWallDeatil(name, setWalletDetails);
-  }, []);
+  }, [wallet]);
 
   const getWallDeatil = (userName, callBack) => {
     WalletAPI.getApi(userName, callBack);
@@ -26,6 +26,8 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
 
   // Consumer wallate amount validation
   const getBidDetailPage = (id, basePrice) => {
+    let name = currentUser?.userName;
+    getWallDeatil(name, setWalletDetails);
     let amount = walletDetails?.data?.wallet?.amount;
     let role = currentUser?.role;
 
@@ -147,4 +149,4 @@ const CowCard = ({ coconutData, currentUser, getInterValTime }) => {
   );
 };
 
-export default CowCard;
+export default CoConutCard;

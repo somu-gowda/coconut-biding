@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import CowCard from "../card/Card";
+import CoConutCard from "../card/Card";
 import NavBar from "../Layouts/NavBar";
 import "./DashboardPage.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
@@ -18,6 +18,7 @@ const DashboardPage = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [addProductModalOpen, setAddProductModaloOpen] = useState(false);
   const [time, setTime] = useState();
+  const [walletDetails, setWalletDetails] = React.useState("");
 
   // Navigation hook
   const navigate = useNavigate();
@@ -72,9 +73,13 @@ const DashboardPage = () => {
     setTime(time);
   };
 
+  const getWalletDetails = (data) => {
+   setWalletDetails(data?.data?.wallet);
+  }
+
   return (
     <Fragment>
-      <NavBar />
+      <NavBar getWalletDetails={getWalletDetails} />
       <ToastContainer />
       {currentUser.role === PRODUCER ? (
         <Container>
@@ -96,9 +101,10 @@ const DashboardPage = () => {
       )}
       <div className="coconut-cards">
         {state && state.length > 0 ? (
-          <CowCard
+          <CoConutCard
             coconutData={state}
             currentUser={currentUser}
+            wallet={walletDetails}
             getInterValTime={getInterValTime}
           />
         ) : (
