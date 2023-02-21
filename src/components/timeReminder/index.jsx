@@ -1,31 +1,33 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
+import { v4 } from "uuid";
 import "./style.css";
 
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 0) {
-    return <div className="timers">Too lale...</div>;
+    return <div className="timers">No Bidding...</div>;
   }
 
   return (
     <div className="timers">
-      <div className="text">Remaining</div>
+      <div className="text">Checking</div>
       <div className="value">{remainingTime}</div>
-      <div className="text">seconds</div>
+      <div className="text">New Bid</div>
     </div>
   );
 };
 
-const TimeReminder = ({ countTime }) => {
+const TimeReminder = () => {
+  const [resetValue, setResetValue] = useState(5);
   return (
     <div className="App">
       <div className="timer-wrapper">
         <CountdownCircleTimer
+          key={v4()}
           isPlaying
-          duration={(countTime / 1000) % 60}
+          duration={resetValue}
           colors={["#004777", 0.33]}
-          onComplete={() => [true, 1000]}
+          onComplete={() => [true, 10000]}
         >
           {renderTime}
         </CountdownCircleTimer>

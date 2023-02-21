@@ -36,7 +36,6 @@ const BidDetail = () => {
   const [bidDetail, setBidDetail] = useState("");
   const [bidingHistory, setBidingHistory] = useState([]);
   const [time, setTime] = useState();
-  const [countTime, setCountTime] = useState();
 
   useEffect(() => {
     getIdByUrl();
@@ -73,8 +72,6 @@ const BidDetail = () => {
   const getBidHistory = (id) => {
     ProductsBiding.getBidById(id, (res) => {
       if (res.data && res.data.userProductBiddings.length > 0) {
-        let bidTime = res.data.userProductBiddings[0]?.updatedAt;
-        setCountTime(Date.parse(bidTime));
         setBidingHistory(res.data.userProductBiddings);
       } else {
         toast(res && res.message);
@@ -180,7 +177,7 @@ const BidDetail = () => {
           <Col className="m-4">
             {time && Math.sign(time) !== -1 && bidingHistory.length > 0 ? (
               <Row>
-                <TimeReminder countTime={countTime} />
+                <TimeReminder />
               </Row>
             ) : (
               ""
