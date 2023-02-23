@@ -34,7 +34,6 @@ const ProductsList = () => {
   useEffect(() => {
     setIsLoading(true);
     currentUser && getCoconutData();
-    setIsLoading(false);
     setInterval(() => {
       currentUser && getCoconutData();
     }, 10000);
