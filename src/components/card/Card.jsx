@@ -121,7 +121,7 @@ const CoConutCard = ({ coconutData, currentUser, getInterValTime, wallet }) => {
                       </span>
                       <Col className="m-1 text-center">
                         <Row className="bg-warning text-dark">
-                          <span>winner: {data?.biddingWinner?.userName}</span>
+                          <span>Sold To: {data?.biddingWinner?.userName}</span>
                           {currentUser?.role === "ADMIN" && (
                             <>
                               <Col>
