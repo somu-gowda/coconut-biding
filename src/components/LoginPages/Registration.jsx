@@ -79,6 +79,8 @@ const Registration = (props) => {
       if (res.status === 409) {
         toast("Choose another user name");
         setError(true);
+      } else if (res?.data.data?.error?.description){
+        toast(res?.data.data?.error?.description);
       } else if (res.status === "SUCCESS") {
         toast("Successfuly registered");
         setTimeout(() => {

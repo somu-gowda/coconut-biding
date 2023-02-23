@@ -17,7 +17,6 @@ class Spinner extends React.Component {
   }
 
   render() {
-    // const spinnerStyle = this.props.spinnerStyle;
     return (
       <div className="sweet-loading">
         <BeatLoader

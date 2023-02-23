@@ -16,6 +16,20 @@ class RegisterApi {
         console.log(err);
       });
   }
+
+   // get users API
+   static getUsersListApi(callBack) {
+    axios
+      .get(`${endpoints().userAPI}`)
+      .then((response) => {
+        let data = response.data;
+        callBack(data);
+      })
+      .catch((err) => {
+        callBack(err.response);
+        console.log(err);
+      });
+  }
 }
 
 export default RegisterApi;

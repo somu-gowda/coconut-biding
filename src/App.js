@@ -7,8 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginForm from "./components/LoginPages/LoginForm";
 import Registration from "./components/LoginPages/Registration";
 import Page404 from "./components/Page404";
-import DashboardPage from "./components/dashboard/DashboardPage";
 import BidDetail from "./components/dashboard/bidDetails/BidDetail";
+import ProductsList from "./components/dashboard/products/ProductsList";
+import UserList from "./components/dashboard/usersList/UsersList";
 
 // Page roots
 const router = createBrowserRouter([
@@ -21,8 +22,12 @@ const router = createBrowserRouter([
     element: <Registration />,
   },
   {
-    path: "/dashboard",
-    element: <DashboardPage />,
+    path: "/users",
+    element: <UserList />,
+  },
+  {
+    path: "/products",
+    element: <ProductsList />,
   },
   {
     path: "/details/:id",

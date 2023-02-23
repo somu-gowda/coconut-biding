@@ -1,20 +1,20 @@
 import React, { Fragment, useEffect, useState } from "react";
-import CoConutCard from "../card/Card";
-import NavBar from "../Layouts/NavBar";
-import "./DashboardPage.css";
+import NavBar from "../../Layouts/NavBar";
+import "./ProductsList.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import WebCookies from "../../components/common/Cookies/cookies";
-import ProductAddModal from "../modal/ProductAddModal";
-import AddProducts from "../modal/ProductAddApi";
+import WebCookies from "../../common/Cookies/cookies";
+import ProductAddModal from "../../modal/ProductAddModal";
+import AddProducts from "../../modal/ProductAddApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import NoRecordsFound from "../../components/NoRecordsFound";
-import Spinner from "../Spinner";
+import NoRecordsFound from "../../NoRecordsFound";
+import Spinner from "../../Spinner";
+import CoConutCard from "../../card/Card";
 
 const PRODUCER = "PRODUCER";
 
-const DashboardPage = () => {
+const ProductsList = () => {
   const [state, setState] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [addProductModalOpen, setAddProductModaloOpen] = useState(false);
@@ -32,7 +32,9 @@ const DashboardPage = () => {
 
   // useeffect for get biding list
   useEffect(() => {
+    setIsLoading(true);
     currentUser && getCoconutData();
+    setIsLoading(false);
     setInterval(() => {
       currentUser && getCoconutData();
     }, 10000);
@@ -40,7 +42,6 @@ const DashboardPage = () => {
 
   // get bidding list
   const getCoconutData = () => {
-    setIsLoading(true);
     AddProducts.getApi((res) => {
       if (res) {
         setIsLoading(false);
@@ -79,11 +80,11 @@ const DashboardPage = () => {
   };
 
   const getWalletDetails = (data) => {
-   setWalletDetails(data?.data?.wallet);
-  }
+    setWalletDetails(data?.data?.wallet);
+  };
 
-   // spinner
-   if (isLoading) {
+  // spinner
+  if (isLoading) {
     return <Spinner />;
   }
 
@@ -137,4 +138,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default ProductsList;

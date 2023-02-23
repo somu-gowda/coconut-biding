@@ -32,7 +32,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate("/dashboard");
+    navigate("/products", { state: { page: "products" } });
   };
 
   // handle submit

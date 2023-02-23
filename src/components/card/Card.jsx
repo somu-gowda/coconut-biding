@@ -52,7 +52,7 @@ const CoConutCard = ({ coconutData, currentUser, getInterValTime, wallet }) => {
   return (
     <Fragment>
       <ToastContainer />
-      <Row xs={1} md={3} className="g-4 m-4 shadow">
+      <Row xs={1} md={4} lg={4} className="g-4 m-4 shadow">
         {coconutData.map((data, idx) => (
           <Col key={idx}>
             <Card className="p-2 border border-4">

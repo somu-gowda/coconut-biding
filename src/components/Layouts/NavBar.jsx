@@ -1,11 +1,4 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Stack from "@mui/material/Stack";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { orange } from "@mui/material/colors";
-import { createTheme } from "@mui/material";
-import { ThemeProvider } from "styled-components";
 import { FaSignOutAlt, FaWallet } from "react-icons/fa";
 import LogOutModal from "../modal/LogoutModal";
 import WalletModal from "../modal/wallet/WalletModal";
@@ -13,60 +6,7 @@ import WebCookies from "../../components/common/Cookies/cookies";
 import { useNavigate } from "react-router-dom";
 import WalletAPI from "../modal/wallet/WalletApi";
 import { ToastContainer, toast } from "react-toastify";
-
-// Navbar items
-function appBarLabel(label, currentUser, callBack) {
-  const logoutModal = (data, callBack) => {
-    callBack(data);
-  };
-
-  return (
-    <Toolbar>
-      <Typography variant="h4" noWrap component="div" sx={{ flexGrow: 1 }}>
-        {label}
-      </Typography>
-      <span style={{ marginRight: "25px", fontSize: "large" }}>
-        {currentUser?.userName}
-      </span>
-      <span onClick={() => logoutModal("wallet", callBack)}>
-        <abbr title="Wallet">
-          <FaWallet
-            style={{
-              color: "white",
-              width: "35px",
-              height: "25px",
-              margin: "5px",
-              cursor: "pointer",
-            }}
-          />
-        </abbr>
-      </span>
-      <span onClick={() => logoutModal("logout", callBack)}>
-        <abbr title="logout">
-          <FaSignOutAlt
-            style={{
-              color: "white",
-              width: "35px",
-              height: "25px",
-              margin: "5px",
-              cursor: "pointer",
-            }}
-          />
-        </abbr>
-      </span>
-    </Toolbar>
-  );
-}
-
-// theme object
-const darkTheme = createTheme({
-  palette: {
-    mode: "success",
-    primary: {
-      main: orange[500],
-    },
-  },
-});
+import { Nav, Navbar } from "react-bootstrap";
 
 const NavBar = (props) => {
   const { getCurrentUser, getWalletDetails } = props;
@@ -138,6 +78,10 @@ const NavBar = (props) => {
     handleNavigation();
   };
 
+  const logoutModal = (data, callBack) => {
+    callBack(data);
+  };
+
   return (
     <React.Fragment>
       <ToastContainer />
@@ -158,15 +102,57 @@ const NavBar = (props) => {
         handleClose={handleLogoutClose}
         logOutFun={logOutFun}
       />
-      <Stack spacing={2} sx={{ flexGrow: 1 }}>
-        <ThemeProvider theme={darkTheme}>
-          <AppBar position="static" color="success">
-            {appBarLabel("Coconut Bid", currentUser, (data) => {
-              logoutToggle(data);
-            })}
-          </AppBar>
-        </ThemeProvider>
-      </Stack>
+      <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
+        <Navbar.Brand href="/dashboard" style={{ marginLeft: "50px" }}>
+          Coconut Bid
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/products">Products</Nav.Link>
+            {currentUser?.role === "ADMIN" && (
+              <Nav.Link href="/users">Users</Nav.Link>
+            )}
+          </Nav>
+          <Nav>
+            <Nav.Link>
+              <span style={{ marginRight: "25px", fontSize: "large" }}>
+                {currentUser?.userName}
+              </span>
+            </Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              <span onClick={() => logoutModal("wallet", logoutToggle)}>
+                <abbr title="Wallet">
+                  <FaWallet
+                    style={{
+                      color: "white",
+                      width: "35px",
+                      height: "25px",
+                      margin: "5px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </abbr>
+              </span>
+            </Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              <span onClick={() => logoutModal("logout", logoutToggle)}>
+                <abbr title="logout">
+                  <FaSignOutAlt
+                    style={{
+                      color: "white",
+                      width: "35px",
+                      height: "25px",
+                      margin: "5px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </abbr>
+              </span>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     </React.Fragment>
   );
 };
