@@ -177,7 +177,7 @@ const BidDetail = () => {
           <Col className="m-4">
             {time && Math.sign(time) !== -1 && bidingHistory.length > 0 ? (
               <Row>
-                <TimeReminder />
+                <TimeReminder bidingHistory={bidingHistory} />
               </Row>
             ) : (
               ""

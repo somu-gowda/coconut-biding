@@ -11,8 +11,9 @@
     align-items: center;
   }
   
-  .text {
-    color: #aaa;
+  .texts {
+    color: #715b5b;
+    font-size: 20px;
   }
   
   .value {

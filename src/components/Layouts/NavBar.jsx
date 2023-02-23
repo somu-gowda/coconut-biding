@@ -3,7 +3,7 @@ import { FaSignOutAlt, FaWallet } from "react-icons/fa";
 import LogOutModal from "../modal/LogoutModal";
 import WalletModal from "../modal/wallet/WalletModal";
 import WebCookies from "../../components/common/Cookies/cookies";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import WalletAPI from "../modal/wallet/WalletApi";
 import { ToastContainer, toast } from "react-toastify";
 import { Nav, Navbar } from "react-bootstrap";
@@ -35,6 +35,7 @@ const NavBar = (props) => {
 
   // Navigation hook
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleNavigation = () => {
     navigate("/");
@@ -109,9 +110,9 @@ const NavBar = (props) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/products">Products</Nav.Link>
+            <Nav.Link href="/products" active={location?.pathname === "/products"}>Products</Nav.Link>
             {currentUser?.role === "ADMIN" && (
-              <Nav.Link href="/users">Users</Nav.Link>
+              <Nav.Link href="/users" active={location?.pathname === "/users"}>Users</Nav.Link>
             )}
           </Nav>
           <Nav>

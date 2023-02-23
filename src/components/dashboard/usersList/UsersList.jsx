@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import NavBar from "../../Layouts/NavBar";
 import RegisterApi from "../../LoginPages/RegisterApi";
 
 const UserList = () => {
@@ -15,6 +16,7 @@ const UserList = () => {
 
   return (
     <Fragment>
+      <NavBar />
       <Container>
         <div className="mt-4 mb-4">
           <h4>Users</h4>

@@ -39,6 +39,7 @@ const ProductAddModal = (props) => {
       bidEndDate: "",
       noOfUnits: "",
       imageUrl: "",
+      productType: ""
     },
   });
 
@@ -192,7 +193,7 @@ const ProductAddModal = (props) => {
               </Row>
 
               <Row className="mb-3">
-                <Col xs={12} md={12}>
+                <Col xs={12} md={6}>
                   <FormGroup>
                     <Form.Label htmlFor="basic-url">Quantity *</Form.Label>
                     <Form.Control
@@ -204,6 +205,24 @@ const ProductAddModal = (props) => {
                       onChange={updateChange}
                     />
                   </FormGroup>
+                </Col>
+                <Col xs={12} md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>
+                      Product Type
+                    </Form.Label>
+                    <Form.Select
+                     name="productType"
+                     type="select"
+                     required
+                     onChange={updateChange}
+                    >
+                    <option>Select product type</option>
+                      <option value="coconut">Coconut</option>
+                      <option value="dryCoconut">Dry Coconut</option>
+                      <option value="tenderCoconut">Tender Coconut</option>
+                    </Form.Select>
+                  </Form.Group>
                 </Col>
               </Row>
 
