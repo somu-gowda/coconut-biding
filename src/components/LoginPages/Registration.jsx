@@ -84,7 +84,7 @@ const Registration = (props) => {
       } else if (res.status === "SUCCESS") {
         toast("Successfuly registered");
         setTimeout(() => {
-          navigate("/");
+          navigate(`/`);
         }, [1000]);
       }
     });

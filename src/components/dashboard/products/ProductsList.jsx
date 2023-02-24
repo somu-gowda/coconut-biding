@@ -47,7 +47,7 @@ const ProductsList = () => {
         setState(res.data.products);
       } else {
         setIsLoading(false);
-        navigate("/page-not-found");
+        navigate(`/page-not-found`);
       }
     });
   };

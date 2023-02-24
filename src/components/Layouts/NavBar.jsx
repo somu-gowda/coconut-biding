@@ -38,7 +38,7 @@ const NavBar = (props) => {
   const location = useLocation();
 
   const handleNavigation = () => {
-    navigate("/");
+    navigate(`/`);
   };
 
   React.useEffect(() => {
