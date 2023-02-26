@@ -15,6 +15,9 @@ const NavBar = (props) => {
   const [openWalletModal, setWalletModal] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState("");
   const [walletDetails, setWalletDetails] = React.useState("");
+  const CONSUMER = "CONSUMER";
+
+  console.log(currentUser);
 
   // toggle logout modal
   const handleLogoutClose = () => setLogoutModal(false);
@@ -86,6 +89,7 @@ const NavBar = (props) => {
   return (
     <React.Fragment>
       <ToastContainer />
+      {currentUser.role === CONSUMER}
       <WalletModal
         currentUser={currentUser}
         open={openWalletModal}
@@ -122,7 +126,8 @@ const NavBar = (props) => {
               </span>
             </Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
-              <span onClick={() => logoutModal("wallet", logoutToggle)}>
+              {currentUser?.role === CONSUMER && (
+                <span onClick={() => logoutModal("wallet", logoutToggle)}>
                 <abbr title="Wallet">
                   <FaWallet
                     style={{
@@ -135,6 +140,7 @@ const NavBar = (props) => {
                   />
                 </abbr>
               </span>
+              )}
             </Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
               <span onClick={() => logoutModal("logout", logoutToggle)}>
