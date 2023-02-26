@@ -99,9 +99,15 @@ const BidDetail = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     ProductsBiding.postApi(state, (res) => {
-      if (res) {
+      if (res.status === 'SUCCESS') {
         toast(res.status);
         getBidHistory(bidId);
+      } else if(res.status !== 200) {
+        if(res.data.data.error.message === "ERR_BIDDING_AMOUNT_SHOULD_BE_GREATER_THAN_BASE_PRICE") {
+          toast("Bidding amount should be greater than the base price");
+        } else if(res.data.data.error.message === "ERR_BIDDING_AMOUNT_SHOULD_BE_GREATER_THAN_LAST_BIDING_AMOUNT") {
+          toast("Bidding amount should be greater than the last bidding amount");
+        }
       } else {
         toast(res && res.message);
       }
