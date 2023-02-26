@@ -122,7 +122,8 @@ const NavBar = (props) => {
               </span>
             </Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
-              <span onClick={() => logoutModal("wallet", logoutToggle)}>
+              {currentUser?.role === CONSUMER && (
+                <span onClick={() => logoutModal("wallet", logoutToggle)}>
                 <abbr title="Wallet">
                   <FaWallet
                     style={{
@@ -135,6 +136,7 @@ const NavBar = (props) => {
                   />
                 </abbr>
               </span>
+             )}
             </Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
               <span onClick={() => logoutModal("logout", logoutToggle)}>
