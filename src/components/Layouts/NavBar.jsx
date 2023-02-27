@@ -8,6 +8,9 @@ import WalletAPI from "../modal/wallet/WalletApi";
 import { ToastContainer, toast } from "react-toastify";
 import { Nav, Navbar } from "react-bootstrap";
 
+// constants
+const CONSUMER = "CONSUMER";
+
 const NavBar = (props) => {
   const { getCurrentUser, getWalletDetails } = props;
   // state
@@ -110,9 +113,16 @@ const NavBar = (props) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/products" active={location?.pathname === "/products"}>Products</Nav.Link>
+            <Nav.Link
+              href="/products"
+              active={location?.pathname === "/products"}
+            >
+              Products
+            </Nav.Link>
             {currentUser?.role === "ADMIN" && (
-              <Nav.Link href="/users" active={location?.pathname === "/users"}>Users</Nav.Link>
+              <Nav.Link href="/users" active={location?.pathname === "/users"}>
+                Users
+              </Nav.Link>
             )}
           </Nav>
           <Nav>
@@ -121,21 +131,23 @@ const NavBar = (props) => {
                 {currentUser?.userName}
               </span>
             </Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              <span onClick={() => logoutModal("wallet", logoutToggle)}>
-                <abbr title="Wallet">
-                  <FaWallet
-                    style={{
-                      color: "white",
-                      width: "35px",
-                      height: "25px",
-                      margin: "5px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </abbr>
-              </span>
-            </Nav.Link>
+            {currentUser?.role === CONSUMER && (
+              <Nav.Link eventKey={2} href="#memes">
+                <span onClick={() => logoutModal("wallet", logoutToggle)}>
+                  <abbr title="Wallet">
+                    <FaWallet
+                      style={{
+                        color: "white",
+                        width: "35px",
+                        height: "25px",
+                        margin: "5px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </abbr>
+                </span>
+              </Nav.Link>
+            )}
             <Nav.Link eventKey={2} href="#memes">
               <span onClick={() => logoutModal("logout", logoutToggle)}>
                 <abbr title="logout">
