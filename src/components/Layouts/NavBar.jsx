@@ -107,7 +107,7 @@ const NavBar = (props) => {
         logOutFun={logOutFun}
       />
       <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
-        <Navbar.Brand href="/dashboard" style={{ marginLeft: "50px" }}>
+        <Navbar.Brand href="/products" style={{ marginLeft: "50px" }}>
           Coconut Bid
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -132,7 +132,7 @@ const NavBar = (props) => {
               </span>
             </Nav.Link>
             {currentUser?.role === CONSUMER && (
-              <Nav.Link eventKey={2} href="#memes">
+              <Nav.Link eventKey={2}>
                 <span onClick={() => logoutModal("wallet", logoutToggle)}>
                   <abbr title="Wallet">
                     <FaWallet
@@ -148,7 +148,7 @@ const NavBar = (props) => {
                 </span>
               </Nav.Link>
             )}
-            <Nav.Link eventKey={2} href="#memes">
+            <Nav.Link eventKey={2}>
               <span onClick={() => logoutModal("logout", logoutToggle)}>
                 <abbr title="logout">
                   <FaSignOutAlt

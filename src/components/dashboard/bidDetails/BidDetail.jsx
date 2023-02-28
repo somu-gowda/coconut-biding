@@ -36,6 +36,7 @@ const BidDetail = () => {
   const [bidDetail, setBidDetail] = useState("");
   const [bidingHistory, setBidingHistory] = useState([]);
   const [time, setTime] = useState();
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     getIdByUrl();
@@ -50,6 +51,9 @@ const BidDetail = () => {
   // set product id
   function getIdByUrl() {
     let bidId = location && location.state && location.state.id;
+    let role = location && location.state && location.state.currentUser.role;
+    setRole(role);
+
     if (!bidId) {
       navigate(`/page-not-found`);
     }
@@ -100,19 +104,27 @@ const BidDetail = () => {
     event.preventDefault();
     ProductsBiding.postApi(state, (res) => {
       if (res) {
-        if (res.status === 'SUCCESS') {
+        if (res.status === "SUCCESS") {
           toast(res.status);
           getBidHistory(bidId);
-        } else if(res.status !== 200) {
-          if(res.data.data.error.message === "ERR_BIDDING_AMOUNT_SHOULD_BE_GREATER_THAN_BASE_PRICE") {
+        } else if (res.status !== 200) {
+          if (
+            res.data.data.error.message ===
+            "ERR_BIDDING_AMOUNT_SHOULD_BE_GREATER_THAN_BASE_PRICE"
+          ) {
             toast("Bidding amount should be greater than the base price");
-          } else if(res.data.data.error.message === "ERR_BIDDING_AMOUNT_SHOULD_BE_GREATER_THAN_LAST_BIDING_AMOUNT") {
-            toast("Bidding amount should be greater than the last bidding amount");
+          } else if (
+            res.data.data.error.message ===
+            "ERR_BIDDING_AMOUNT_SHOULD_BE_GREATER_THAN_LAST_BIDING_AMOUNT"
+          ) {
+            toast(
+              "Bidding amount should be greater than the last bidding amount"
+            );
           }
-      } else {
-        toast(res && res.message);
+        } else {
+          toast(res && res.message);
+        }
       }
-    }
     });
   };
 
@@ -191,7 +203,7 @@ const BidDetail = () => {
               ""
             )}
 
-            {location?.state?.currentUser.role === CONSUMER ? (
+            {role === CONSUMER ? (
               <Form onSubmit={handleSubmit}>
                 <div className="d-flex justify-content-between mt-4">
                   <InputGroup>
