@@ -12,6 +12,7 @@ import {
   FormGroup,
   FormLabel,
   FormSelect,
+  FormText,
   Row,
 } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
@@ -73,6 +74,7 @@ const Registration = (props) => {
         email: user.email,
         password: user.password,
         role: getRoles(user),
+        address: user.address,
       },
     };
     RegisterApi.registerPostApi(registerValues, (res) => {
@@ -200,6 +202,16 @@ const Registration = (props) => {
                       <option value="producer">Producer</option>
                       <option value="consumer">Consumer</option>
                     </FormSelect>
+                  </FormGroup>
+                  <FormGroup className="mb-3" controlId="role">
+                    <FormLabel>Address *</FormLabel>
+                    <FormControl
+                      name="address"
+                      type="text"
+                      required
+                      onChange={updateChange}
+                    >
+                    </FormControl>
                   </FormGroup>
                 </Card.Body>
                 <Card.Footer className="d-flex justify-content-evenly text-center">

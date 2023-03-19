@@ -9,5 +9,7 @@ export const endpoints = () => ({
   userLogin: appApi("v1/login"),
   productAPI: appApi("v1/products"),
   walletAPI: appApi("v1/users"),
-  bidAPI: appApi("v2/userProductBidding")
+  bidAPI: appApi("v2/userProductBidding"),
+  userForgotPasswordAPI: appApi("v1/users/forgot-password"),
+  resetPasswordAPI: appApi("v1/users/reset-password"),
 });

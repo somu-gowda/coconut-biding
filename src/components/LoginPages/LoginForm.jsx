@@ -121,6 +121,9 @@ const LoginForm = () => {
                     <span className="ml-6">
                       Don't have an account? <a href="/signup"> Signup</a>
                     </span>
+                    <span className="ml-6">
+                      <a href="/forgot-password"> Forgot Password</a>
+                    </span>
                   </Card.Footer>
                 </Card>
               </Form>

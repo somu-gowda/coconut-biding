@@ -10,6 +10,8 @@ import Page404 from "./components/Page404";
 import BidDetail from "./components/dashboard/bidDetails/BidDetail";
 import ProductsList from "./components/dashboard/products/ProductsList";
 import UserList from "./components/dashboard/usersList/UsersList";
+import ForgotPassword from "./components/LoginPages/ForgotPassword";
+import ResetPassword from "./components/LoginPages/ResetPassword";
 
 // Page roots
 const router = createBrowserRouter([
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
     path: "/page-not-found",
     element: <Page404 />,
   },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />
+  }
 ]);
 
 function App() {
