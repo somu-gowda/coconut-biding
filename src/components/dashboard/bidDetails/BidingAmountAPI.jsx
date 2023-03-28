@@ -11,7 +11,6 @@ class ProductsBiding {
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
       });
   }
 
@@ -24,7 +23,6 @@ class ProductsBiding {
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
       });
   }
 

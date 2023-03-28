@@ -20,7 +20,6 @@ import ResetPasswordApi from "./ResetPasswordApi";
 
 const ResetPassword = (props) => {
   let params = queryString.parse(window.location.search);
-  console.log(params, 'window location');
   // state
   let [state, setState] = useState({
     user: {

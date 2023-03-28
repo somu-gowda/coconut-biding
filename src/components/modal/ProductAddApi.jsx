@@ -12,7 +12,6 @@ class AddProducts {
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
       });
   }
 
@@ -25,7 +24,18 @@ class AddProducts {
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
+      });
+  }
+
+  // product get API
+  static getApiCustomList(callBack, queryParams) {
+    axios
+      .get(`${endpoints().productAPI}` + queryParams)
+      .then((response) => {
+        callBack(response.data);
+      })
+      .catch((err) => {
+        callBack(err.response);
       });
   }
 }

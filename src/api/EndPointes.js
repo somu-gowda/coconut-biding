@@ -12,4 +12,5 @@ export const endpoints = () => ({
   bidAPI: appApi("v2/userProductBidding"),
   userForgotPasswordAPI: appApi("v1/users/forgot-password"),
   resetPasswordAPI: appApi("v1/users/reset-password"),
+  userComplaintAPI: appApi("v1/users/random/complaints"),
 });

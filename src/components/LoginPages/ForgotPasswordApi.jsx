@@ -13,7 +13,6 @@ class ForgotPasswordApi {
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
       });
   }
 }

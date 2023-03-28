@@ -14,6 +14,10 @@ const UserList = () => {
     RegisterApi.getUsersListApi(setUsersList);
   };
 
+  const deleteUser = (userName) => {
+    RegisterApi.deleteUserApi(getUsersList, userName);
+  }
+
   return (
     <Fragment>
       <NavBar />
@@ -32,6 +36,7 @@ const UserList = () => {
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Role</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -45,6 +50,11 @@ const UserList = () => {
                             <td>{user.email}</td>
                             <td>{user.phone}</td>
                             <td>{user.role}</td>
+                            <td>
+                              <div className="remove">
+                                <button onClick={() => deleteUser(user._id)}>delete</button>
+                              </div>
+                            </td>                          
                           </tr>
                         );
                       }

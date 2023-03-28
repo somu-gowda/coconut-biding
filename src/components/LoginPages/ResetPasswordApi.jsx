@@ -13,7 +13,6 @@ class ResetPasswordApi {
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
       });
   }
 }

@@ -12,6 +12,7 @@ import ProductsList from "./components/dashboard/products/ProductsList";
 import UserList from "./components/dashboard/usersList/UsersList";
 import ForgotPassword from "./components/LoginPages/ForgotPassword";
 import ResetPassword from "./components/LoginPages/ResetPassword";
+import UserComplaints from './components/dashboard/complaintList/ComplaintList'
 
 // Page roots
 const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPassword />
+  },
+  {
+    path: "/user-complaints",
+    element: <UserComplaints />
   }
 ]);
 

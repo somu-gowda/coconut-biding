@@ -13,21 +13,44 @@ class RegisterApi {
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
       });
   }
 
    // get users API
-   static getUsersListApi(callBack) {
+   static getUsersListApi(callBack, qParam) {
     axios
-      .get(`${endpoints().userAPI}`)
+      .get(`${endpoints().userAPI}?` + qParam)
       .then((response) => {
         let data = response.data;
         callBack(data);
       })
       .catch((err) => {
         callBack(err.response);
-        console.log(err);
+      });
+  }
+
+  static deleteUserApi(callBack, userId) {
+    axios
+      .delete(`${endpoints().userAPI}/` + userId)
+      .then((response) => {
+        let data = response.data;
+        callBack(data);
+      })
+      .catch((err) => {
+        callBack(err.response);
+      });
+  }
+
+  static getUserComplaintList(callBack) {
+    axios
+      .get(`${endpoints().userComplaintAPI}`)
+      .then((response) => {
+        let data = response.data;
+        console.log('complaintList', data);
+        callBack(data);
+      })
+      .catch((err) => {
+        callBack(err.response);
       });
   }
 }

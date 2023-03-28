@@ -11,7 +11,6 @@ class WalletAPI {
       })
       .catch((err) => {
         callBack(err);
-        console.log(err);
       });
   }
 
@@ -24,7 +23,6 @@ class WalletAPI {
       })
       .catch((err) => {
         callBack(err);
-        console.log(err);
       });
   }
 }
