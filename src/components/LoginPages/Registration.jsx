@@ -129,14 +129,17 @@ const Registration = (props) => {
                       as={Col}
                       md="6"
                       className="mb-3"
-                      controlId="formBasicEmail"
+                      controlId="formPhoneNumber"
                     >
                       <Form.Label>Phone Number *</Form.Label>
                       <Form.Control
                         name="phone"
-                        type="number"
+                        type="tel"
                         placeholder="Enter phone number"
+                        inputMode="numeric"
                         required
+                        pattern="\d{10}"
+                        title="Please enter a 10-digit phone number"
                         onChange={updateChange}
                       />
                     </Form.Group>
@@ -170,6 +173,7 @@ const Registration = (props) => {
                         type="email"
                         placeholder="Enter email"
                         required
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                         onChange={updateChange}
                       />
                     </Form.Group>

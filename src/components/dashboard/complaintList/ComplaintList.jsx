@@ -41,7 +41,7 @@ const ComplaintList = () => {
                         console.log(complaint);                  
                         return (
                           <tr key={index}>
-                            <td>{index}</td>
+                            <td>{index + 1}</td>
                             <td>{complaint.complaintBy}</td>
                             <td>{complaint.complaintOn}</td>
                             <td>{complaint.productName}</td>

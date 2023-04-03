@@ -45,7 +45,7 @@ const UserList = () => {
                       if (user.role !== "ADMIN") {
                         return (
                           <tr key={index}>
-                            <td>{index}</td>
+                            <td>{index + 1}</td>
                             <td>{user.userName}</td>
                             <td>{user.email}</td>
                             <td>{user.phone}</td>
